@@ -17,7 +17,7 @@ exports.search = async(req,res,next)=>{
             });
             console.log(result[0])
             // jsond=JSON.parse(result)
-           return res.status(200).json({data:result})
+           return res.status(200).json({status:true,data:result})
         })
         
     } catch (error) {
@@ -32,18 +32,25 @@ exports.info= async(req,res,next)=>{
 
     try {
         result=[]
+        flag=0
         const {}=req.params
          await fs.readFile('data/book.csv',(err,data)=>{console.log(err)
             jsonData=JSON.parse(data)
             jsonData.forEach(element => {
 
                 if( element.item_number==req.params.item_number){
+                    flag=1
                     result.push(element)
                 }
             });
-            // console.log(result[0])
+            console.log(flag)
+            console.log(result[0])
             // jsond=JSON.parse(result)
-           return res.status(200).json({data:result[0]})
+          if(flag==1){
+            return res.status(200).json({data:result[0]})
+          }else{
+            return res.status(204).json({data:"book doesn't exist"})
+          }
         })
         
     } catch (error) {
