@@ -2,7 +2,7 @@ const e = require("express");
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const request = require("request");
+const request = require("requests");
 exports.perchase = async (req, res, next) => {
   console.log("ord1");
   var item_number = req.params.item_number;
